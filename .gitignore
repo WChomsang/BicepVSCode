@@ -1,0 +1,48 @@
+# Azure deployment outputs
+*.deploymentParameters.json
+
+# ARM template compiled output
+*.json
+!azuredeploy.json
+!*.parameters.json
+!.azuredeploy.parameters.*.json
+
+# Bicep build artifacts
+.bicep/
+
+# Azure CLI
+.azure/
+
+# Environment variable files
+.env
+.env.*
+*.env
+
+# Azure Developer CLI
+.azure/
+infra/.azure/
+
+# Terraform (if mixed)
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+~$*
