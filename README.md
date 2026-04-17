@@ -12,12 +12,15 @@ Deploy an Azure Virtual Network and Storage Account using Bicep and PowerShell.
 
 | File | Description |
 |---|---|
-| `main.bicep` | Bicep template — VNet and Storage Account |
+| `main.bicep` | Entry point — references VNet and Storage modules |
+| `modules/vnet.bicep` | Virtual Network with subnets |
+| `modules/storage.bicep` | Storage Account |
 | `deploy.ps1` | Creates resource group and deploys `main.bicep` |
 | `cleanup.ps1` | Removes the resource group and all resources |
 
 ## Steps
 
-1. **Create `main.bicep`** — define a VNet with subnets and a Storage Account resource
-2. **Deploy** — run `./deploy.ps1` (optionally pass `-ResourceGroupName` and `-Location`)
-3. **Cleanup** — run `./cleanup.ps1` (optionally pass `-ResourceGroupName`)
+1. **Create modules** — define `modules/vnet.bicep` and `modules/storage.bicep`
+2. **Create `main.bicep`** — reference both modules
+3. **Deploy** — run `./deploy.ps1` (optionally pass `-ResourceGroupName` and `-Location`)
+4. **Cleanup** — run `./cleanup.ps1` (optionally pass `-ResourceGroupName`)
