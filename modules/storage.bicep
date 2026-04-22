@@ -15,3 +15,4 @@ resource stg 'Microsoft.Storage/storageAccounts@2025-08-01' = {
 }
 
 output storageAccountId string = stg.id
+output storageUri string = stg.properties.primaryEndpoints.blob

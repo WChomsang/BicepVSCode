@@ -1,5 +1,8 @@
-param vnetName string = 'exampleVNet'
+param vnetName string
 param rgLocation string = resourceGroup().location
+param addressPrefix array = []
+param subnetSettings array = []
+param nsgId string
 
 resource vnet 'Microsoft.Network/virtualNetworks@2025-05-01' = {
   name: vnetName
@@ -7,20 +10,17 @@ resource vnet 'Microsoft.Network/virtualNetworks@2025-05-01' = {
   properties: {
     addressSpace: {
       addressPrefixes: [
-        '10.0.0.0/16'
+        for prefix in addressPrefix: prefix
       ]
     }
     subnets: [
-      {
-        name: 'Subnet-1'
+      for subnet in subnetSettings: {
+        name: subnet.name
         properties: {
-          addressPrefix: '10.0.1.0/24'
-        }
-      }
-      {
-        name: 'Subnet-2'
-        properties: {
-          addressPrefix: '10.0.2.0/24'
+          addressPrefix: subnet.prefix
+          networkSecurityGroup: subnet.nsg ? {
+            id: nsgId
+          } : null
         }
       }
     ]
@@ -28,3 +28,4 @@ resource vnet 'Microsoft.Network/virtualNetworks@2025-05-01' = {
 }
 
 output vnetId string = vnet.id
+output subnetIds object = toObject(vnet.properties.subnets, s => s.name, s => s.id)
